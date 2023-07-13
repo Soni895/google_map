@@ -1,14 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import{API_key} from "./Api";
+import { API_KEY_MAP } from './Api';
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
+
 
 function App() {
   
-
 
   const  [position,setposition]=useState({
     city:'', latitude:"",longitude:''
   });
 
+
+  const containerStyle = {
+    width: '1200px',
+    height: '1200px'
+  };
+
+  
+  const center = {
+    lat:position.latitude ,
+    lng:position. longitude
+  };
+
+ 
 
 
   async function get_location()
@@ -51,20 +66,15 @@ function App() {
     else{
            throw(new Error("decive Not Support"));
        
-         }
-
-
-         get_location();
+         }        
 }
-
-
 
 function  details()
 {
  
   console.log(position);
 
-
+  get_location();
 
 }
 
@@ -93,11 +103,15 @@ function  details()
   }
   return (
    <div className='App'>
-     <div>your latitude longitude</div>
+     <div>your current position</div>
+     <LoadScript googleMapsApiKey="AIzaSyDRJvu5W7wye_HEgvtEaGDEVzlaQU0SWhg">
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10} />
+    </LoadScript>
     <h2>{position.latitude}</h2>
     <h2>{position.longitude}</h2>
     <h2>{position.city}</h2>
     <button onClick={details}> get your current cordinates and city name</button>
+   
    </div>
   )
 }
