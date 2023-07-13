@@ -19,7 +19,7 @@ function App() {
   
           let response=await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${position.latitude}&lon=${position.longitude}&appid=${API_key}`);
           response=await response.json();
-          position_upadte(response?.name);
+          setposition((prevpos) => ({ ...prevpos, city: response?.name }));
       } catch (error) {
           alert(" Hey not found !");
       }
@@ -41,19 +41,20 @@ function App() {
         
         
           position_upadte(position.coords.latitude,position.coords.longitude);
-          get_location();
-
           
+      
         });
 
     }
    
 
-
     else{
            throw(new Error("decive Not Support"));
        
          }
+
+
+         get_location();
 }
 
 
@@ -63,20 +64,24 @@ function  details()
  
   console.log(position);
 
+
+
 }
 
 
 
-  function position_upadte(lat,long,City='')
+  function position_upadte(lat,long)
   {
     try{
-      console.log(lat,long,City); 
+      console.log(lat,long); 
       console.log(position);
-      setposition(
-       (prevpos)=>({...prevpos,[position.latitude]:lat,[position.longitude]:long,[position.city]:City})
-      );
+      setposition((prevpos) => ({
+              ...prevpos,
+              latitude: lat,
+              longitude: long,
+            }));
    
-      console.log(lat,long,City);
+      console.log(lat,long);
     }
 
  catch(error)
