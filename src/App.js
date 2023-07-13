@@ -23,7 +23,6 @@ function App() {
       } catch (error) {
           alert(" Hey not found !");
       }
-  
   }
   useEffect(() => {
     current_loc();
@@ -34,6 +33,7 @@ function App() {
 
  function current_loc()
 {
+  
     if(navigator.geolocation)
     {
         navigator.geolocation.getCurrentPosition(function(position)
@@ -43,8 +43,7 @@ function App() {
           position_upadte(position.coords.latitude,position.coords.longitude);
           get_location();
 
-           
-           
+          
         });
 
     }
@@ -70,16 +69,21 @@ function  details()
 
   function position_upadte(lat,long,City='')
   {
-   console.log(lat,long,City);
-   console.log(position.latitude,position.longitude,position.city);
-   setposition(
-    (prevpos)=>({...prevpos,[position.latitude]:lat,[position.longitude]:long,[position.city]:City})
-   );
-
-   console.log(position);
-
+    try{
+      console.log(lat,long,City); 
+      console.log(position);
+      setposition(
+       (prevpos)=>({...prevpos,[position.latitude]:lat,[position.longitude]:long,[position.city]:City})
+      );
    
-    
+      console.log(lat,long,City);
+    }
+
+ catch(error)
+ {
+  console.log(error);
+
+  }
 
   }
   return (
