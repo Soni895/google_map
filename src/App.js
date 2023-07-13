@@ -27,7 +27,7 @@ function App() {
   }
   useEffect(() => {
     current_loc();
-    get_location();
+   
   }, []);
 
 
@@ -41,6 +41,7 @@ function App() {
         
         
           position_upadte(position.coords.latitude,position.coords.longitude);
+          get_location();
 
            
            
@@ -71,12 +72,11 @@ function  details()
   {
    console.log(lat,long,City);
    console.log(position.latitude,position.longitude,position.city);
-
-
    setposition(
     (prevpos)=>({...prevpos,[position.latitude]:lat,[position.longitude]:long,[position.city]:City})
    );
 
+   console.log(position);
 
    
     
